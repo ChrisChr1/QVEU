@@ -1,0 +1,17 @@
+root = '/Volumes/lvd_qve-1/Projects/PTD_StrandSpecificCounting_scRNAseq/'
+spt_file_root <- 'Scissors_Analysis_v4'
+ 
+ 
+spt_file_full_ipynb = paste0(root, spt_file_root, '.ipynb')
+spt_file_full_rmd = paste0(root, spt_file_root, '.rmd')
+ 
+# Convert IPYNB to RMD
+ 
+xfun::file_string(spt_file_full_ipynb)
+file_nb_rmd = rmarkdown:::convert_ipynb(spt_file_full_ipynb, output = xfun::with_ext(root, "Rmd"))
+st_nb_rmd = xfun::file_string(file_nb_rmd)
+ 
+# Save
+fileConn <- file(spt_file_full_rmd)
+writeLines(st_nb_rmd, fileConn)
+close(fileConn)
